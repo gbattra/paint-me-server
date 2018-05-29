@@ -3,9 +3,8 @@ import tensorflow as tf
 import numpy as np
 import PIL.Image
 
-import vgg16
 
-def load_image(filename, max_size=Name):
+def load_image(filename, max_size=None):
     image = PIL.Image.open(filename)
     if max_size is not None:
         factor = max_size / np.max(image.size)
@@ -46,3 +45,20 @@ def plot_images(content_image, style_image, mixed_image):
         ax.set_yticks([])
 
     plt.show()
+
+def mean_squared_error(a, b):
+    return tf.reduce_mean(tf.square(a - b))
+
+def create_content_loss(sess, model, content_image, layer_ids):
+    feed_dict = model.create_feed_dict(image=content_image)
+    layers = model.get_layer_tensors(layer_ids)
+    values = sess.run(layers, feed_dict=feed_dict)
+    with model.graph.as_default():
+        layers_losses = []
+        for value, layer in zip(values, layers):
+            value_const = tf.constant(value)
+            loss = mean_squared_error(layer, value)
+            layers_losses.appen(loss)
+        total_loss = tf.reduce_mean(layers_losses)
+
+    return total_loss
