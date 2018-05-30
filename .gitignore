@@ -1,3 +1,10 @@
+.idea/
 .idea/*
 venv/
 venv/*
+.git
+.git/*
+__pycache__/
+__pycache__/*
+vgg16/
+/vgg16/vgg16.tfmodel
