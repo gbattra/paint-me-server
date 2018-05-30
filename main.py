@@ -113,10 +113,12 @@ content_image = load_image(content_filename)
 style_filename = 'images/style_image.jpg'
 style_image = load_image(style_filename)
 
-content_layer_ids = [4]
-style_layer_ids = list(range(13))
+content_layer_ids = [5]
+style_layer_ids =  list(range(13))
 
 image = style_transfer(content_image=content_image, style_image=style_image,
                        content_layer_ids=content_layer_ids, style_layer_ids=style_layer_ids,
                        weight_content=1.5, weight_style=10.0, weight_denoise=0.3,
                        num_iterations=60, step_size=10.0)
+
+# save_image(image, 'images/mixed_image_3.jpg')
